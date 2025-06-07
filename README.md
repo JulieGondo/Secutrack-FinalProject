@@ -135,4 +135,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Firebase for backend services
 - Modern web APIs for geolocation and camera access
-- Open source community for inspiration and support 
+- Open source community for inspiration and support
+
+## 👥 Contributors
+
+- **Julie Nicole Caballes**
+- **Chloe Evangelista**
+- **Sarah Beatrice Realubit** 

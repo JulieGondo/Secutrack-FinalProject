@@ -10,27 +10,118 @@
     <div class="guard-container">
         <header>
             <h1>Guard Portal</h1>
-            <button id="logoutBtn">Logout</button>
+            <div class="user-info">
+                <span id="guardName">Guard Name</span>
+                <button id="logoutBtn">Logout</button>
+            </div>
         </header>
+
         <main>
-            <div class="time-controls">
-                <button id="timeInBtn">Time In</button>
-                <button id="timeOutBtn">Time Out</button>
-            </div>
-            <div class="status">
-                <p>Current Status: <span id="currentStatus">Not Clocked In</span></p>
-                <p>Last Action: <span id="lastAction">-</span></p>
-            </div>
-            <div class="attendance-history">
+            <!-- Status Section -->
+            <section class="status-section">
+                <div class="current-status">
+                    <h2>Current Status</h2>
+                    <div class="status-indicator">
+                        <span id="statusText">Not Clocked In</span>
+                        <div id="statusDot" class="status-dot off-duty"></div>
+                    </div>
+                    <p class="last-action">Last Action: <span id="lastAction">-</span></p>
+                </div>
+            </section>
+
+            <!-- Time Control Section -->
+            <section class="time-controls">
+                <h2>Time In/Out</h2>
+                <div class="control-buttons">
+                    <button id="timeInBtn" class="primary-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Time In
+                    </button>
+                    <button id="timeOutBtn" class="secondary-btn" disabled>
+                        <i class="fas fa-sign-out-alt"></i>
+                        Time Out
+                    </button>
+                </div>
+                <div class="verification-status">
+                    <div class="gps-status">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="gpsStatus">GPS: Checking...</span>
+                    </div>
+                    <div class="face-status">
+                        <i class="fas fa-user"></i>
+                        <span id="faceStatus">Face: Ready</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Today's Attendance -->
+            <section class="attendance-history">
                 <h2>Today's Attendance</h2>
-                <div id="todayAttendance"></div>
-            </div>
+                <div class="attendance-timeline">
+                    <div class="timeline-item">
+                        <div class="time">Time In</div>
+                        <div class="details">
+                            <span id="timeInTime">-</span>
+                            <span id="timeInLocation">-</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">Time Out</div>
+                        <div class="details">
+                            <span id="timeOutTime">-</span>
+                            <span id="timeOutLocation">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Location Map -->
+            <section class="location-section">
+                <h2>Current Location</h2>
+                <div id="locationMap" class="map-container"></div>
+                <div class="location-details">
+                    <p>Latitude: <span id="latitude">-</span></p>
+                    <p>Longitude: <span id="longitude">-</span></p>
+                    <p>Accuracy: <span id="accuracy">-</span> meters</p>
+                </div>
+            </section>
         </main>
     </div>
 
+    <!-- Face Recognition Modal -->
+    <div id="faceModal" class="modal">
+        <div class="modal-content">
+            <h2>Face Verification</h2>
+            <div class="camera-container">
+                <video id="camera" autoplay playsinline></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+            </div>
+            <div class="verification-status">
+                <div id="verificationProgress" class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <p id="verificationStatus">Please look at the camera...</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="retryBtn" style="display: none;">Retry</button>
+                <button id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loadingText">Processing...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
     <script src="firebase-config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/dtr.js"></script>
     <script src="js/face.js"></script>
+    <script src="js/guard.js"></script>
 </body>
 </html> 
