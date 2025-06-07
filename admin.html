@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secutrack - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <button id="logoutBtn">Logout</button>
+        </header>
+        <main>
+            <section class="guards-list">
+                <h2>Guards</h2>
+                <div id="guardsList"></div>
+            </section>
+            <section class="attendance-log">
+                <h2>Attendance Log</h2>
+                <div id="attendanceLog"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html> 

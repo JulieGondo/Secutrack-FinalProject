@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secutrack - Guard Portal</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="guard-container">
+        <header>
+            <h1>Guard Portal</h1>
+            <button id="logoutBtn">Logout</button>
+        </header>
+        <main>
+            <div class="time-controls">
+                <button id="timeInBtn">Time In</button>
+                <button id="timeOutBtn">Time Out</button>
+            </div>
+            <div class="status">
+                <p>Current Status: <span id="currentStatus">Not Clocked In</span></p>
+                <p>Last Action: <span id="lastAction">-</span></p>
+            </div>
+            <div class="attendance-history">
+                <h2>Today's Attendance</h2>
+                <div id="todayAttendance"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dtr.js"></script>
+    <script src="js/face.js"></script>
+</body>
+</html> 
