@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Secutrack
 
 A modern security guard time tracking system with GPS location and facial recognition capabilities.
@@ -99,3 +100,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Firebase for backend services
 - Modern web APIs for geolocation and camera access 
+=======
+# Secutrack-FinalProject
+Final Project for IT Elective 1
+>>>>>>> 528df195a0061473618fe845fd2bb17c4db2f335
