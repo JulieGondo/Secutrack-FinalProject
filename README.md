@@ -139,6 +139,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Contributors
 
-- **Julie Nicole Caballes**
+- **Juliane Nicole Caballes**
 - **Chloe Evangelista**
 - **Sarah Beatrice Realubit** 
