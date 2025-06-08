@@ -1,127 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secutrack - Guard Portal</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secutrack - Guard Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="css/guard.css" />
 </head>
-<body>
-    <div class="guard-container">
-        <header>
-            <h1>Guard Portal</h1>
-            <div class="user-info">
-                <span id="guardName">Guard Name</span>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </header>
-
-        <main>
-            <!-- Status Section -->
-            <section class="status-section">
-                <div class="current-status">
-                    <h2>Current Status</h2>
-                    <div class="status-indicator">
-                        <span id="statusText">Not Clocked In</span>
-                        <div id="statusDot" class="status-dot off-duty"></div>
-                    </div>
-                    <p class="last-action">Last Action: <span id="lastAction">-</span></p>
-                </div>
-            </section>
-
-            <!-- Time Control Section -->
-            <section class="time-controls">
-                <h2>Time In/Out</h2>
-                <div class="control-buttons">
-                    <button id="timeInBtn" class="primary-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Time In
-                    </button>
-                    <button id="timeOutBtn" class="secondary-btn" disabled>
-                        <i class="fas fa-sign-out-alt"></i>
-                        Time Out
-                    </button>
-                </div>
-                <div class="verification-status">
-                    <div class="gps-status">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span id="gpsStatus">GPS: Checking...</span>
-                    </div>
-                    <div class="face-status">
-                        <i class="fas fa-user"></i>
-                        <span id="faceStatus">Face: Ready</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Today's Attendance -->
-            <section class="attendance-history">
-                <h2>Today's Attendance</h2>
-                <div class="attendance-timeline">
-                    <div class="timeline-item">
-                        <div class="time">Time In</div>
-                        <div class="details">
-                            <span id="timeInTime">-</span>
-                            <span id="timeInLocation">-</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="time">Time Out</div>
-                        <div class="details">
-                            <span id="timeOutTime">-</span>
-                            <span id="timeOutLocation">-</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Location Map -->
-            <section class="location-section">
-                <h2>Current Location</h2>
-                <div id="locationMap" class="map-container"></div>
-                <div class="location-details">
-                    <p>Latitude: <span id="latitude">-</span></p>
-                    <p>Longitude: <span id="longitude">-</span></p>
-                    <p>Accuracy: <span id="accuracy">-</span> meters</p>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Face Recognition Modal -->
-    <div id="faceModal" class="modal">
-        <div class="modal-content">
-            <h2>Face Verification</h2>
-            <div class="camera-container">
-                <video id="camera" autoplay playsinline></video>
-                <canvas id="canvas" style="display: none;"></canvas>
-            </div>
-            <div class="verification-status">
-                <div id="verificationProgress" class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-                <p id="verificationStatus">Please look at the camera...</p>
-            </div>
-            <div class="modal-buttons">
-                <button id="retryBtn" style="display: none;">Retry</button>
-                <button id="cancelBtn">Cancel</button>
-            </div>
+<body class="app-bg">
+  <div class="guard-container">
+    <header class="app-header card">
+      <h1 class="app-title">🛡️ Guard Portal</h1>
+      <div class="user-info">
+        <span id="guardName" class="user-name">Guard Name</span>
+        <button id="logoutBtn" class="logout-btn" aria-label="Logout">Logout</button>
+      </div>
+    </header>
+    <main>
+      <section class="status-section card" aria-labelledby="statusHeading">
+        <h2 id="statusHeading">Current Status</h2>
+        <div class="status-indicator">
+          <span id="statusText">Not Clocked In</span>
+          <div id="statusDot" class="status-dot off-duty" aria-label="Status indicator"></div>
         </div>
+        <p class="last-action">Last Action: <span id="lastAction">-</span></p>
+      </section>
+      <section class="time-controls card" aria-labelledby="timeControlsHeading">
+        <h2 id="timeControlsHeading">Time In/Out</h2>
+        <div class="control-buttons">
+          <button id="timeInBtn" class="primary-btn app-btn" aria-label="Time In"><i class="fas fa-sign-in-alt"></i>Time In</button>
+          <button id="timeOutBtn" class="secondary-btn app-btn" aria-label="Time Out" disabled><i class="fas fa-sign-out-alt"></i>Time Out</button>
+        </div>
+        <div class="verification-status">
+          <div class="gps-status"><i class="fas fa-map-marker-alt"></i><span id="gpsStatus">GPS: Checking...</span></div>
+          <div class="face-status"><i class="fas fa-user"></i><span id="faceStatus">Face: Ready</span></div>
+        </div>
+      </section>
+      <section class="attendance-history card" aria-labelledby="attendanceHeading">
+        <h2 id="attendanceHeading">Today's Attendance</h2>
+        <div class="attendance-timeline scrollable-x">
+          <div class="timeline-item">
+            <div class="time">Time In</div>
+            <div class="details">
+              <span id="timeInTime">-</span>
+              <span id="timeInLocation">-</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">Time Out</div>
+            <div class="details">
+              <span id="timeOutTime">-</span>
+              <span id="timeOutLocation">-</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="location-section card" aria-labelledby="locationHeading">
+        <h2 id="locationHeading">Current Location</h2>
+        <div id="locationMap" class="map-container"></div>
+        <div class="location-details">
+          <p>Latitude: <span id="latitude">-</span></p>
+          <p>Longitude: <span id="longitude">-</span></p>
+          <p>Accuracy: <span id="accuracy">-</span> meters</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Face Modal -->
+  <div id="faceModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="faceModalTitle">
+    <div class="modal-content">
+      <h2 id="faceModalTitle">Face Verification</h2>
+      <div class="camera-container">
+        <video id="camera" autoplay playsinline></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+      </div>
+      <div class="verification-status">
+        <div id="verificationProgress" class="progress-bar"><div class="progress"></div></div>
+        <p id="verificationStatus">Please look at the camera...</p>
+      </div>
+      <div class="modal-buttons">
+        <button id="retryBtn" class="modal-btn" style="display: none;">Retry</button>
+        <button id="cancelBtn" class="modal-btn">Cancel</button>
+      </div>
     </div>
-
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <p id="loadingText">Processing...</p>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-    <script src="firebase-config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/dtr.js"></script>
-    <script src="js/face.js"></script>
-    <script src="js/guard.js"></script>
+  </div>
+  <div id="loadingOverlay" class="loading-overlay" aria-live="polite" aria-busy="true">
+    <div class="spinner"></div>
+    <p id="loadingText">Processing...</p>
+  </div>
+  <!-- Scripts -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dtr.js"></script>
+  <script src="js/face.js"></script>
+  <script src="js/guard.js"></script>
 </body>
-</html> 
+</html>

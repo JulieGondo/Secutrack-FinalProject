@@ -1,0 +1,134 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #001F3F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-wrapper {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #001F3F;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 25px;
+    color: #001F3F;
+  }
+  
+  .subtitle {
+    color: #555;
+    font-size: 14px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  
+  .input-group i {
+    margin-right: 10px;
+    color: #999;
+  }
+  
+  .input-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 14px;
+  }
+  
+  .toggle-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .remember-me input {
+    margin-right: 5px;
+  }
+  
+  .forgot-password {
+    color: #001F3F;
+    text-decoration: none;
+  }
+  
+  .login-button {
+    width: 100%;
+    background-color: #001F3F;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .login-button:hover {
+    background-color: #003366;
+  }
+  
+  .login-footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  
+  .login-footer a {
+    color: #001F3F;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .toast,
+  .loading-overlay {
+    display: none;
+  }
+  

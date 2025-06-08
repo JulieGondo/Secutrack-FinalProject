@@ -1,124 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secutrack - Admin Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secutrack - Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css" />
 </head>
-<body>
-    <div class="admin-container">
-        <header>
-            <h1>Admin Dashboard</h1>
-            <div class="user-info">
-                <span id="adminName">Admin</span>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </header>
-
-        <main>
-            <!-- Guard Management Section -->
-            <section class="guards-management">
-                <h2>Guard Management</h2>
-                <div class="action-buttons">
-                    <button id="addGuardBtn">Add New Guard</button>
-                    <button id="editGuardBtn">Edit Guard</button>
-                    <button id="removeGuardBtn">Remove Guard</button>
-                </div>
-                <div class="guards-list">
-                    <table id="guardsTable">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="guardsListBody"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Real-time Status Section -->
-            <section class="real-time-status">
-                <h2>Real-time Status</h2>
-                <div class="status-cards">
-                    <div class="status-card">
-                        <h3>On Duty</h3>
-                        <span id="onDutyCount">0</span>
-                    </div>
-                    <div class="status-card">
-                        <h3>Off Duty</h3>
-                        <span id="offDutyCount">0</span>
-                    </div>
-                    <div class="status-card">
-                        <h3>Late</h3>
-                        <span id="lateCount">0</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Attendance Monitoring Section -->
-            <section class="attendance-monitoring">
-                <h2>Attendance Monitoring</h2>
-                <div class="date-filter">
-                    <input type="date" id="attendanceDate" onchange="updateAttendanceLog()">
-                </div>
-                <div class="attendance-log">
-                    <table id="attendanceTable">
-                        <thead>
-                            <tr>
-                                <th>Guard Name</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="attendanceLogBody"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Historical Data Section -->
-            <section class="historical-data">
-                <h2>Historical Data</h2>
-                <div class="date-range">
-                    <input type="date" id="startDate">
-                    <input type="date" id="endDate">
-                    <button id="generateReportBtn">Generate Report</button>
-                </div>
-                <div class="report-options">
-                    <select id="reportType">
-                        <option value="attendance">Attendance Report</option>
-                        <option value="late">Late Report</option>
-                        <option value="overtime">Overtime Report</option>
-                    </select>
-                    <button id="exportBtn">Export to CSV</button>
-                </div>
-                <div id="reportContent"></div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Add Guard Modal -->
-    <div id="addGuardModal" class="modal">
-        <div class="modal-content">
-            <h2>Add New Guard</h2>
-            <form id="addGuardForm">
-                <input type="text" id="guardName" placeholder="Full Name" required>
-                <input type="email" id="guardEmail" placeholder="Email" required>
-                <input type="password" id="guardPassword" placeholder="Password" required>
-                <button type="submit">Add Guard</button>
-                <button type="button" onclick="closeModal('addGuardModal')">Cancel</button>
-            </form>
+<body class="app-bg">
+  <div class="admin-container">
+    <header class="app-header card">
+      <h1 class="app-title">Admin Dashboard</h1>
+      <div class="user-info">
+        <span id="adminName" class="user-name">Admin</span>
+        <button id="logoutBtn" class="logout-btn" aria-label="Logout">Logout</button>
+      </div>
+    </header>
+    <main>
+      <!-- Guard Management -->
+      <section class="guards-management card" aria-labelledby="guardsManagementHeading">
+        <h2 id="guardsManagementHeading">Guard Management</h2>
+        <div class="action-buttons">
+          <button id="addGuardBtn" class="app-btn">Add New Guard</button>
+          <button id="editGuardBtn" class="app-btn">Edit Guard</button>
+          <button id="removeGuardBtn" class="app-btn">Remove Guard</button>
         </div>
+        <div class="guards-list scrollable-x">
+          <table id="guardsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="guardsListBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Real-time Status -->
+      <section class="real-time-status card" aria-labelledby="realTimeStatusHeading">
+        <h2 id="realTimeStatusHeading">Real-time Status</h2>
+        <div class="status-cards">
+          <div class="status-card on-duty">
+            <h3><i class="fas fa-user-shield"></i> On Duty</h3>
+            <span id="onDutyCount">0</span>
+          </div>
+          <div class="status-card off-duty">
+            <h3><i class="fas fa-user-slash"></i> Off Duty</h3>
+            <span id="offDutyCount">0</span>
+          </div>
+          <div class="status-card late">
+            <h3><i class="fas fa-clock"></i> Late</h3>
+            <span id="lateCount">0</span>
+          </div>
+        </div>
+      </section>
+      <!-- Attendance Monitoring -->
+      <section class="attendance-monitoring card" aria-labelledby="attendanceMonitoringHeading">
+        <h2 id="attendanceMonitoringHeading">Attendance Monitoring</h2>
+        <div class="date-filter">
+          <input type="date" id="attendanceDate" onchange="updateAttendanceLog()"/>
+        </div>
+        <div class="attendance-log scrollable-x">
+          <table id="attendanceTable">
+            <thead>
+              <tr>
+                <th>Guard Name</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Location</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceLogBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Historical Data -->
+      <section class="historical-data card" aria-labelledby="historicalDataHeading">
+        <h2 id="historicalDataHeading">Historical Data</h2>
+        <div class="date-range">
+          <input type="date" id="startDate"/>
+          <input type="date" id="endDate"/>
+          <button id="generateReportBtn" class="app-btn">Generate Report</button>
+        </div>
+        <div class="report-options">
+          <select id="reportType">
+            <option value="attendance">Attendance Report</option>
+            <option value="late">Late Report</option>
+            <option value="overtime">Overtime Report</option>
+          </select>
+          <button id="exportBtn" class="app-btn">Export to CSV</button>
+        </div>
+        <div id="reportContent"></div>
+      </section>
+    </main>
+  </div>
+  <!-- Add Guard Modal -->
+  <div id="addGuardModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="addGuardModalTitle">
+    <div class="modal-content">
+      <button type="button" class="close-modal" aria-label="Close" onclick="closeModal('addGuardModal')">&times;</button>
+      <h2 id="addGuardModalTitle">Add New Guard</h2>
+      <form id="addGuardForm">
+        <input type="text" id="guardName" placeholder="Full Name" required />
+        <input type="email" id="guardEmail" placeholder="Email" required />
+        <input type="password" id="guardPassword" placeholder="Password" required />
+        <button type="submit" class="app-btn">Add Guard</button>
+        <button type="button" class="modal-btn cancel-btn" onclick="closeModal('addGuardModal')">Cancel</button>
+      </form>
     </div>
-
-    <script src="firebase-config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/admin.js"></script>
+  </div>
+  <!-- Toast/Alert Placeholder -->
+  <div id="toast" class="toast" role="alert" aria-live="polite" style="display:none;">
+    <span id="toastMessage"></span>
+    <button type="button" class="close-toast" aria-label="Close">&times;</button>
+  </div>
+  <script src="firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
 </body>
-</html> 
+</html>
