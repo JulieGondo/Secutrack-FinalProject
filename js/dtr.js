@@ -1,5 +1,5 @@
 // DTR (Daily Time Record) Logic
-import { getFirestore, collection, addDoc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js';
+import { getFirestore, collection, addDoc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 
 const db = getFirestore();
 

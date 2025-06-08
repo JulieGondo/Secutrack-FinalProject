@@ -1,5 +1,5 @@
 // Login Page Functionality
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 
 const auth = getAuth();
 

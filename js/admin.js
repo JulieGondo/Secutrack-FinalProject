@@ -1,6 +1,6 @@
 // Admin Dashboard Functionality
-import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js';
-import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js';
+import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 
 const db = getFirestore();
 const auth = getAuth();
