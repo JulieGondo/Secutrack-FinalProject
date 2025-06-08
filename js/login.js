@@ -1,7 +1,4 @@
-// Login Page Functionality
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
-
-const auth = getAuth();
+import { login } from './auth.js'; // Import the login function
 
 // DOM Elements
 const loginForm = document.getElementById('loginForm');
@@ -30,7 +27,6 @@ function setupEventListeners() {
     forgotPasswordLink.addEventListener('click', handleForgotPassword);
     closeToastBtn.addEventListener('click', hideToast);
     contactAdminLink.addEventListener('click', handleContactAdmin);
-    
     // Real-time validation
     usernameInput.addEventListener('input', validateUsername);
     passwordInput.addEventListener('input', validatePassword);
@@ -39,38 +35,27 @@ function setupEventListeners() {
 // Handle Login
 async function handleLogin(e) {
     e.preventDefault();
-    
+
     if (!validateForm()) {
         return;
     }
 
-    const username = usernameInput.value.trim();
+    const email = usernameInput.value.trim();
     const password = passwordInput.value;
 
     try {
         showLoading();
-        const userCredential = await signInWithEmailAndPassword(auth, username, password);
-        
         if (rememberMeCheckbox.checked) {
             localStorage.setItem('rememberMe', 'true');
-            localStorage.setItem('username', username);
+            localStorage.setItem('username', email);
         } else {
             localStorage.removeItem('rememberMe');
             localStorage.removeItem('username');
         }
-
-        // Redirect based on user role
-        const user = userCredential.user;
-        const userRole = await getUserRole(user.uid);
-        
-        if (userRole === 'admin') {
-            window.location.href = 'admin.html';
-        } else {
-            window.location.href = 'guard.html';
-        }
+        await login(email, password); // Use login from auth.js, which handles redirect
     } catch (error) {
         console.error('Login error:', error);
-        showError(getErrorMessage(error.code));
+        showError(getErrorMessage(error.code || error.message));
     } finally {
         hideLoading();
     }
@@ -79,20 +64,23 @@ async function handleLogin(e) {
 // Handle Forgot Password
 async function handleForgotPassword(e) {
     e.preventDefault();
-    const username = usernameInput.value.trim();
+    const email = usernameInput.value.trim();
 
-    if (!username) {
+    if (!email) {
         showError('Please enter your username');
         return;
     }
 
     try {
         showLoading();
-        await sendPasswordResetEmail(auth, username);
+        // Import sendPasswordResetEmail from Firebase Auth if needed
+        const { sendPasswordResetEmail, getAuth } = await import('https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js');
+        const auth = getAuth();
+        await sendPasswordResetEmail(auth, email);
         showSuccess('Password reset email sent. Please check your inbox.');
     } catch (error) {
         console.error('Password reset error:', error);
-        showError(getErrorMessage(error.code));
+        showError(getErrorMessage(error.code || error.message));
     } finally {
         hideLoading();
     }
@@ -102,7 +90,6 @@ async function handleForgotPassword(e) {
 function togglePasswordVisibility() {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
-    
     const icon = togglePasswordBtn.querySelector('i');
     icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
 }
@@ -120,17 +107,14 @@ function validateForm() {
     let isValid = true;
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
-
     // Reset error messages
     document.getElementById('usernameError').textContent = '';
     document.getElementById('passwordError').textContent = '';
-
     // Validate username
     if (!username) {
         document.getElementById('usernameError').textContent = 'Username is required';
         isValid = false;
     }
-
     // Validate password
     if (!password) {
         document.getElementById('passwordError').textContent = 'Password is required';
@@ -139,19 +123,16 @@ function validateForm() {
         document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
         isValid = false;
     }
-
     return isValid;
 }
 
 function validateUsername() {
     const username = usernameInput.value.trim();
     const usernameError = document.getElementById('usernameError');
-    
     if (!username) {
         usernameError.textContent = 'Username is required';
         return false;
     }
-    
     usernameError.textContent = '';
     return true;
 }
@@ -159,26 +140,16 @@ function validateUsername() {
 function validatePassword() {
     const password = passwordInput.value;
     const passwordError = document.getElementById('passwordError');
-    
     if (!password) {
         passwordError.textContent = 'Password is required';
         return false;
     }
-    
     if (password.length < 6) {
         passwordError.textContent = 'Password must be at least 6 characters';
         return false;
     }
-    
     passwordError.textContent = '';
     return true;
-}
-
-// Get User Role
-async function getUserRole(userId) {
-    // Implement your role checking logic here
-    // This is a placeholder - you should fetch the actual role from your database
-    return 'guard'; // or 'admin'
 }
 
 // Error Message Helper
@@ -191,37 +162,31 @@ function getErrorMessage(errorCode) {
         'auth/too-many-requests': 'Too many failed attempts. Please try again later',
         'auth/network-request-failed': 'Network error. Please check your connection'
     };
-    
     return errorMessages[errorCode] || 'An error occurred. Please try again.';
 }
 
 // UI Helpers
 function showLoading() {
-    loadingOverlay.style.display = 'flex';
+    if (loadingOverlay) loadingOverlay.style.display = 'flex';
 }
-
 function hideLoading() {
-    loadingOverlay.style.display = 'none';
+    if (loadingOverlay) loadingOverlay.style.display = 'none';
 }
-
 function showError(message) {
-    toastMessage.textContent = message;
-    toast.className = 'toast show';
+    if (toastMessage) toastMessage.textContent = message;
+    if (toast) toast.className = 'toast show';
     setTimeout(hideToast, 5000);
 }
-
 function showSuccess(message) {
-    toastMessage.textContent = message;
-    toast.className = 'toast success show';
+    if (toastMessage) toastMessage.textContent = message;
+    if (toast) toast.className = 'toast success show';
     setTimeout(hideToast, 5000);
 }
-
 function hideToast() {
-    toast.classList.remove('show');
+    if (toast) toast.classList.remove('show');
 }
-
 // Handle Contact Admin
 function handleContactAdmin(e) {
     e.preventDefault();
-    showToast('Please contact your system administrator for account creation.');
+    showError('Please contact your system administrator for account creation.');
 } 
