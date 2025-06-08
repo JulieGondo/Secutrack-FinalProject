@@ -12,8 +12,13 @@ export async function login(email, password) {
         // Check if Firestore is online
         if (!db.app._offline) {
             console.log("Firestore is online. Proceeding with Firestore operations.");
+
             // Fetch user data from Firestore
-            const userDoc = await getDoc(doc(db, "admin", user.uid));
+            let userDoc = await getDoc(doc(db, "admin", user.uid));
+            if (!userDoc.exists()) {
+                // If not found, try 'guards'
+                userDoc = await getDoc(doc(db, "guards", user.uid));
+            }
             if (userDoc.exists()) {
                 const userData = userDoc.data();
                 const role = userData.role;
