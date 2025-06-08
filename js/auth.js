@@ -28,7 +28,7 @@ export async function login(email, password) {
                     window.location.href = "/admin.html";// Redirect to admin page
                 } else if (role === "guard") {
                     console.log("Role is guard, about to redirect to /guard.html");
-                    window.location.href = "/guard.html"; // Redirect to guard page
+                    window.location.href = "/guards.html"; // Redirect to guard page
                 } else {
                     alert("Unauthorized access.");
                     await auth.signOut();
